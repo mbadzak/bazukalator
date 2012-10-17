@@ -1,0 +1,6 @@
+INDEX VERSION 1.126+C:\Users\Miran Badzak\Documents\GitHub\bazukalator\.metadata\.plugins\org.eclipse.jdt.core
+3234990875.index
+1697235957.index
+630436268.index
+1879830554.index
+3914309891.index

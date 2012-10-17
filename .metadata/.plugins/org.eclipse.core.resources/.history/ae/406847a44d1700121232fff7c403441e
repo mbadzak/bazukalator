@@ -1,0 +1,63 @@
+.lang_button {
+  height: 50px;
+  padding: 5px;
+}
+.post_box {
+  padding: 5px;
+  position: relative;
+  top: 1px;
+}
+.this_page {
+  text-align: left;
+  background-size: 100%;
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+}
+* {
+	font-family: Arial, Geneva, Helvetica, sans-serif;
+	font-size: 12px;
+	outline-width: 0px;
+}
+body {
+ 	margin: 0px;
+ 	text-align: center;
+ 	background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcS2PA2uHWJFSdZZ1McTlaeA10mjYVdjPBxmzLr-aKL_QhGZhEVP);
+	background-size: 100%;
+	background-attachment: fixed;
+	background-repeat: repeat;
+	background-color: #eeeeee;
+}
+textarea {
+	resize: none;
+}
+textarea, select,
+input {
+	border: 1px solid #DDD;
+	-moz-border-radius: 8px;
+  	-webkit-border-radius: 8px;
+  	border-radius: 8px;
+}
+
+select {
+	border: 1px solid #DDD;
+}
+.heading {
+	font-size: 18px; 
+	font-weight: bold;
+	color: lightgray; 
+	background: black; 
+	padding: 5px;
+	background-image: url(img/gr1.png);
+	background-size: 100%;
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+}
+.box {
+	font-size: 12px;
+	padding: 4px;
+	margin: 0px;
+	color: #999999;
+	width: 94%; 
+	height: 40px; 
+	border: 5px solid #ddd;
+}

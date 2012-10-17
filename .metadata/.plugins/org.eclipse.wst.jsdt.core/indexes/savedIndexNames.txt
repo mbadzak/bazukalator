@@ -1,0 +1,5 @@
+INDEX VERSION 1.122+C:\Users\Miran Badzak\Documents\GitHub\bazukalator\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2086890858.index
+3203548200.index
+162998129.index
+880243572.index

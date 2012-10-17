@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Hello World</title>
+<script type="text/javascript" charset="utf-8" src="cordova-2.1.0.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="jquery.autosize-min.js"></script>
+<script type="text/javascript" src="utl.js"></script>
+<script type="text/javascript" src="translate.js"></script>
+
+<link href="style.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+
+
+<script type="text/javascript">
+    var orig_text = "";
+    var default_text = "Write something...";
+    var msg_box_activated = false;
+    var msg_translated = false;
+</script>
+<div class="this_page">
+  <div class="heading" style="text-align: left;">
+    Bazukalator
+  </div>
+  <div style="margin-top: 10px; opacity: 0.8; width: 100%; height: 50px;">
+    <textarea name="msg" 
+              id="msg" 
+              
+              class="box"
+              autocomplete="off">Write something...</textarea>
+  </div>
+  <div style="margin-top: 5px;">
+    <div  
+           id="btn_submit1" 
+           class="lang_button" 
+           >Pirate</div>
+  </div>
+  
+  <div id="post" style="margin: 20px 0px 0px 5px; color: white; display: none; ">
+    <div style="float: left; clear: both; width: 50%; font-size: 11px; text-align: left;">
+    	Facebook<img class="button_img img_norad" src="img/fb-icon.png" width="15" height="15">
+      <input type="checkbox" 
+           id="post_facebook" 
+           class="post_box" 
+           checked="checked"
+           value="Post to Facebook">
+           
+           
+    </div>
+    <div style="float: left; width: 50%; font-size: 11px;">
+      <input type="checkbox"
+           id="post_twitter" 
+           class="post_box" 
+           checked="checked"
+           value="Post to Facebook">
+           <img class="button_img img_norad" src="img/twitter-icon.png" width="15" height="15">
+           Twitter
+    </div>
+  </div>
+  <div id="post2" style="display: none; margin-top: 55px; margin-left: 0px;">
+      <input type="button" value="Post" style="padding: 5px;">
+  </div>
+</div>
+<script type="text/javascript">
+	$("#msg").focus(function() {
+		if (msg_translated) {
+			msg_translated = false;
+			$("#msg").val(orig_text);
+		}
+		if (msg_box_activated) {
+			
+		} else {
+			$("#msg").val("");
+			$("#msg").css("color", "#000000");
+			
+			msg_box_activated = true;
+		}
+	});
+	$("#msg").blur(function() {
+		if ($("#msg").val() == "") {
+			msg_box_reset();
+		}
+	});
+    $("#btn_submit1").click(function() { msg_box_translate(1); });
+
+    function msg_box_translate(lang) 
+    {
+    	var req;
+    	var res;
+    	
+    	if ($("#msg").val() == "") {
+    		msg_box_reset();
+    		return;
+    	}
+    	
+    	if (!msg_box_activated)
+    		return;
+
+    	msg_translated = true;
+        
+    	req = orig_text = $("#msg").val();
+ 		res = "";
+        switch (lang) {
+        	case 1:
+        		res = translate_to_pirate(req);
+        		break;       	
+        
+        }
+
+        $("#msg").val(res);
+        $("#post").css("display", "block");
+		$("#post2").css("display", "block");
+    }
+
+    function btn_disable(id)
+    {
+    	
+    }
+    function msg_box_reset()
+    {
+    	$('#msg').val(default_text); 
+    	$('#msg').css("color", "#999999");
+        orig_text = "";
+        msg_box_activated = false;
+        $("#post").css("display", "none");
+        $("#post2").css("display", "none");
+    }
+    
+</script>
+
+</body>
+</html>

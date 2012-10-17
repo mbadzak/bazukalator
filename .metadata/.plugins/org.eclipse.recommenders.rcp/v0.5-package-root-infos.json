@@ -1,0 +1,41 @@
+[
+  {
+    "symbolicName": "cordova-2.1.0",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "31894cc31f364b073981fd3e7590d6d6b0bc92ca",
+    "jarFileModificationDate": "2012-10-13T22:58:39.003-04:00",
+    "location": "C:\\Users\\Miran Badzak\\Documents\\GitHub\\bazukalator\\Bazukalator\\libs\\cordova-2.1.0.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "612846c9857077a039b533718f72db3bc041d389",
+    "jarFileModificationDate": "2012-10-13T22:56:42.938-04:00",
+    "location": "C:\\Users\\Miran Badzak\\Documents\\GitHub\\bazukalator\\Bazukalator\\libs\\android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "f2dca2ead97466b417a99823b658e05e0c3c4832",
+    "jarFileModificationDate": "2012-10-13T22:23:06.174-04:00",
+    "location": "C:\\Program Files\\Android\\android-sdk\\platforms\\android-16\\android.jar",
+    "javaRuntime": false
+  }
+]

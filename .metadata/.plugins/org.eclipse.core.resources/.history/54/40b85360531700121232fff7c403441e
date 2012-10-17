@@ -1,0 +1,60 @@
+.lang_button {
+  height: 50px;
+  padding: 5px;
+}
+.post_box {
+  padding: 5px;
+  position: relative;
+  top: 1px;
+}
+.this_page {
+  margin: 0px auto;
+}
+* {
+	font-family: Arial, Geneva, Helvetica, sans-serif;
+	font-size: 12px;
+	outline-width: 0px;
+}
+body {
+ 	margin: 0px;
+ 	text-align: center;
+ 	background-image: url(img/bg.jpg);
+	background-size: 100%;
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+	background-color: #eeeeee;
+}
+textarea {
+	resize: none;
+}
+textarea, select,
+input {
+	border: 1px solid #000000;
+	-moz-border-radius: 8px;
+  	-webkit-border-radius: 8px;
+  	border-radius: 8px;
+}
+
+select {
+	border: 1px solid #DDD;
+}
+.heading {
+	font-size: 18px; 
+	font-weight: bold;
+	color: lightgray; 
+	background: black; 
+	padding: 5px;
+	background-image: url(img/gr1.png);
+	background-size: 100%;
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+}
+.box {
+	font-size: 12px;
+	padding: 4px;
+	margin: 0px;
+	color: #999999;
+	width: 88%; 
+	height: 40px; 
+	border: 5px solid #ddd;
+}

@@ -1,0 +1,544 @@
+String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, "");
+};
+String.prototype.trim_newline = function() {
+	return this.replace(/(\r\n|\n|\r)/gm,"");
+};
+
+/*
+ * utl_clear_text_field
+ * IN	field	field to clear
+ */
+function utl_clear_text_field(field, init_value) {
+	if (field.value.toString() == init_value.toString())
+		field.value = "";
+	field.style.color = "#000000";
+	field.style.background = "#FFFFFF";
+}
+
+function utl_clear_text_field_id(id, init_value)
+{
+	var field = document.getElementById(id);
+	return utl_clear_text_field(field, init_value);
+}
+
+function utl_clear_password_field(disp_p, real_p) {
+	var dp = document.getElementById(disp_p);
+	var rp = document.getElementById(real_p);
+	dp.style.display = "none";
+	rp.style.display = "inline";
+	
+	rp.focus();
+}
+
+function utl_reset_password_field(disp_p, real_p) {
+	var dp = document.getElementById(disp_p);
+	var rp = document.getElementById(real_p);
+	if (rp.value == "") {
+		dp.style.display = "inline";
+		rp.style.display = "none";
+		dp.value = "Password";
+	}
+} 
+
+function utl_reset_text_field(field, value) {
+	if (field.value == "") {
+		field.value = value;
+		field.style.color = "#999999";
+	}
+} 
+
+function utl_focus(id)
+{
+	var elem = document.getElementById(id);
+	elem.focus();
+}
+
+function utl_expand_textarea(field, lines) {
+	field.className = "stallboxpost_selected";
+}
+
+function utl_expand_text_field(field, new_width)
+{
+	field.style.width = new_width;
+}
+
+function utl_is_int(a)
+{
+	return parseInt(a, 10) === a;
+}
+function utl_handle_enter(field, event)
+{
+	if (event.keyCode == 13) {
+		$(field).closest('form').submit();
+		return false;
+	}
+	return true;
+}
+
+/**
+ * @deprecated use jquery plugin instead
+ * @param field
+ * @param event
+ * @param max_per_line
+ */
+function utl_expand_texarea_as_you_go(field, event, max_per_line)
+{
+	var chars = field.value.length;
+	var rows = chars / max_per_line;
+	var newline_count;
+	var total_size = 18;
+	var modified = false;
+	
+	if (chars == 0) return;
+	
+	newline_count = (field.value.split('\n')).length - 1;
+
+	if (utl_is_int(rows))
+	{
+		total_size += (rows * 12);
+		modified = true;
+	}
+	
+	if (newline_count > 0) {
+		total_size += (newline_count * 16);
+		modified = true;
+	}
+	
+	if (modified)
+		field.style.height = total_size + "px";
+}
+
+function utl_expand_replybox(field)
+{
+	field.className = "stallboxpostreply_selected";
+}
+function utl_expand_replybox_id(id)
+{
+	var field = document.getElementById(id);
+	return utl_expand_replybox(field);
+}
+
+/*
+ * utl_set_password_field
+ * IN	field	field to clear
+ */
+function utl_set_password_field(field) {
+	var ele = document.getElementById(field);
+	ele.value = "Password";
+	ele.type="";
+} 
+
+/*
+ * utl_toggle_visibility
+ * IN	field	field to clear
+ */
+function utl_toggle_visibility(field) {
+	var fl = document.getElementById(field);
+	fl.style.display = (fl.style.display == "block") ? "none" : "block";
+}
+
+/*
+ * utl_toggle_visibility
+ * IN	field	field to show
+ */
+function utl_show_field(field) {
+	var fl = document.getElementById(field);
+	if (fl == null)
+		return;
+	fl.style.display = "block";
+}
+
+function utl_hide_field(field) {
+	var fl = document.getElementById(field);
+	if (fl == null)
+		return;
+	fl.style.display = "none";
+}
+
+function utl_show_obj(obj)
+{
+	obj.style.display = "block";
+}
+function utl_hide_obj(obj)
+{
+	obj.style.display = "none";
+}
+/*
+ * utl_toggle_area
+ * IN	areas	areas involved
+ * IN	area_to_show	area that should be displayed
+ */
+function utl_toggle_area(areas, area_to_show, buttons, clicked_button)
+{
+	var elem_area;
+	var elem_button;
+	
+	for (i = 0; i < areas.length; i++) {
+		elem_area = document.getElementById(areas[i]);
+		if (elem_area == null)
+			continue;
+		elem_area.style.display = 'none';
+		
+		elem_button = document.getElementById(buttons[i]);
+		if (elem_button == null)
+			continue;
+		elem_button.className = "tab_first_inactive";
+	}
+	document.getElementById(area_to_show).style.display = 'block';
+	clicked_button.className = "tab_first";
+}
+
+function generate_uuid()
+{
+	/* credit: http://stackoverflow.com/questions/105034/how-to-create-a-guid-uuid-in-javascript */
+	var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+	    var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+	    return v.toString(16);
+	});	
+
+	return uuid;
+}
+
+function utl_add_more_teams(loc, name_w, members_w, max_team_name, max_emails)
+{
+	var table;
+	var tr;
+	var td1;
+	var td2;
+	var text;
+	var textarea;
+	var br;
+	var tbody;
+	
+	var team_name = "names[]";
+	var members_name = "members[]";
+	
+	text = document.createElement('input');
+	text.setAttribute('type', 'text');
+	text.setAttribute('maxlength', max_team_name);
+	text.setAttribute('name', team_name);
+	text.setAttribute('id', team_name);
+	text.setAttribute('class', 'league_add_team_name_box');
+	text.setAttribute('className', 'league_add_team_name_box');
+	
+	textarea = document.createElement('textarea');
+	textarea.setAttribute('name', members_name);
+	textarea.setAttribute('id', members_name);
+	textarea.setAttribute('onkeyup', 'validate_limit_textarea(this, ' + max_emails + ')');
+	textarea.setAttribute('onkeydown', 'validate_limit_textarea(this, ' + max_emails + ')');
+	textarea.setAttribute('class', 'league_add_team_members_box');
+	textarea.setAttribute('className', 'league_add_team_members_box');
+	
+	td1 = document.createElement('td');
+	td1.setAttribute('width', name_w);
+	td1.setAttribute('valign', 'top');
+	td1.appendChild(text);
+	
+	td2 = document.createElement('td');
+	td2.setAttribute('width', members_w);
+	td2.setAttribute('valign', 'top');
+	td2.appendChild(textarea);
+	
+	tr = document.createElement('tr');
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+	
+	tbody = document.createElement('tbody');
+	
+	table = document.createElement('table');
+	table.setAttribute('width', '100%');
+	table.setAttribute('cellpadding', '0');
+	table.setAttribute('cellspacing', '0');
+	table.appendChild(tbody);
+
+	tbody.appendChild(tr);
+	
+	br = document.createElement('br');
+
+	document.getElementById(loc).appendChild(table);
+	document.getElementById(loc).appendChild(br);
+}
+
+/**
+ * @deprecated
+ * @param loc
+ * @param team1_html
+ * @param team2_html
+ * @param time_html
+ * @param location_max
+ */
+function utl_add_more_games(loc, team1_html, team2_html, time_html, location_max)
+{
+	var table;
+	var tr;
+	var td1, td2, td3, td4, td5, td6;
+	var div1, div2, div3;
+	var date;
+	var br;
+	var tbody;
+	
+	tbody = document.createElement('tbody');
+	
+	table = document.createElement('table');
+	table.setAttribute('width', '100%');
+	table.setAttribute('cellpadding', '5');
+	table.setAttribute('cellspacing', '0');
+	table.appendChild(tbody);
+	
+	tr = document.createElement('tr');
+	
+	td1 = document.createElement('td');
+	td1.setAttribute('width', '20%');
+	
+	td2 = document.createElement('td');
+	td2.setAttribute('width', '5%');
+	
+	td3 = document.createElement('td');
+	td3.setAttribute('width', '20%');
+	
+	td4 = document.createElement('td');
+	td4.setAttribute('width', '10%');
+	
+	td5 = document.createElement('td');
+	td5.setAttribute('width', '10%');
+	
+	td6 = document.createElement('td');
+	td6.setAttribute('width', '35%');
+	
+	date = document.createElement('input');
+	date.setAttribute('type', 'text');
+	date.setAttribute('name', 'date[]');
+	date.setAttribute('id', 'date[]');
+	date.setAttribute('readonly', 'true');
+	date.setAttribute('size', '10');
+	date.setAttribute('value', 'Date');
+	// IE
+	if (date.attachEvent) {
+		date.attachEvent('onmouseover', function() {
+			var mCal = new dhtmlxCalendarObject(date); 
+			mCal.setSkin('dhx_skyblue');
+		});
+		date.attachEvent('onclick', function() {
+			var mCal = new dhtmlxCalendarObject(date);
+		});
+	}
+	// Rest	
+	date.setAttribute('onmouseover', "var mCal = new dhtmlxCalendarObject(this); mCal.setSkin('dhx_skyblue');");
+	date.setAttribute('onclick', "var mCal = new dhtmlxCalendarObject(this);");
+	
+	tbody.appendChild(tr);
+	tr.appendChild(td1);
+	tr.appendChild(td2);
+	tr.appendChild(td3);
+	tr.appendChild(td4);
+	tr.appendChild(td5);
+	tr.appendChild(td6);
+	
+	td1.innerHTML = team1_html;
+	td2.innerHTML = "vs";
+	td3.innerHTML = team2_html;
+	td4.appendChild(date);
+	td5.innerHTML = time_html;
+	td6.innerHTML = "<input type='text' "
+				  + "name='location[]' "
+				  + "id='location[]' "
+				  + "size='15' "
+				  + "maxlength='"+ location_max + "'"
+				  + "onFocus=\"utl_clear_text_field(this, \'Location or Field\')\" "
+			      + "value='Location or Field'>";
+	
+	br = document.createElement('br');
+	
+	document.getElementById(loc).appendChild(table);
+}
+
+function utl_local_time(utc)
+{
+	var date = new Date(0);
+	utc -= date.getTimezoneOffset() * 60;
+	date.setUTCSeconds(utc);
+	return date;
+}
+
+function utl_day_num_to_str(num)
+{
+	var weekday=new Array(7);
+	weekday[0]="Sunday";
+	weekday[1]="Monday";
+	weekday[2]="Tuesday";
+	weekday[3]="Wednesday";
+	weekday[4]="Thursday";
+	weekday[5]="Friday";
+	weekday[6]="Saturday";
+	
+	return weekday[num];
+}
+
+function utl_month_num_to_str(num)
+{
+	var month=new Array(12);
+	month[0]="January";
+	month[1]="February";
+	month[2]="March";
+	month[3]="April";
+	month[4]="May";
+	month[5]="June";
+	month[6]="July";
+	month[7]="August";
+	month[8]="September";
+	month[9]="October";
+	month[10]="November";
+	month[11]="December";
+	
+	return month[num];
+}
+
+function utl_full_date_str(utc)
+{
+	var d = utl_local_time(utc);
+	var hour = d.getHours();
+	var min = d.getMinutes();
+	var day_of_week = utl_day_num_to_str(d.getDay());
+	var month = utl_month_num_to_str(d.getMonth());
+	var day = d.getDate();
+	var year = d.getFullYear();
+	var ap = "";
+	if (hour > 12) {
+		hour -= 12;
+		ap = "pm";
+	} else if (hour == 12) {
+		hour = 12;
+		ap = "pm";
+	} else {
+		if (hour == 0)
+			hour = "12";
+		ap = "am";
+	}
+	if (min < 10) {
+		min = "0" + min;
+	}
+	if (hour < 10) {
+		hour = "0" + hour;
+	}
+	return hour + ":" + min + " " + ap + " - " + day_of_week + ", " + month + " " + day + ", " + year;	
+}
+function utl_full_date_title(obj, utc)
+{
+	obj.title = utl_full_date_str(utc);
+}
+
+function utl_abbr_date_str(utc)
+{
+	var d_past = utl_local_time(utc);
+	var d_curr = new Date();
+
+	var sec_past = d_past.getTime() / 1000;
+	var sec_curr = d_curr.getTime() / 1000;
+	
+	var sec_diff = sec_curr - sec_past;
+	var min_diff = sec_diff / 60;
+	var hour_diff = min_diff / 60;
+	var day_diff = hour_diff / 24;
+	var week_diff = day_diff / 7;
+	var month_diff = week_diff / 4;
+	var year_diff = month_diff / 12;
+	
+	if (sec_diff < 2) {
+		return "Just Now";
+	} else if (sec_diff < 60) {
+		return (parseInt(sec_diff)) + " seconds ago";
+	} else if (min_diff < 2) {
+		return "1 min ago";
+	} else if (min_diff < 60) {
+		return (parseInt(min_diff)) + " minutes ago";
+	} else if (hour_diff < 2) {
+		return "1 hour ago";
+	} else if (hour_diff < 24) {
+		return (parseInt(hour_diff)) + " hours ago";
+	} else if (day_diff < 2) {
+		return "1 day ago";
+	} else if (day_diff < 7) {
+		return (parseInt(day_diff)) + " days ago";
+	} else if (week_diff < 2) {
+		return "1 week ago";
+	} else if (week_diff < 4) {
+		return (parseInt(week_diff)) + " weeks ago";
+	} else if (month_diff < 2) {
+		return "1 month ago";
+	} else if (month_diff < 12) {
+		return (parseInt(month_diff)) + " months ago";
+	} else if (year_diff < 2) {
+		return "1 year ago";
+	} else {
+		return (parseInit(year_diff)) + " years ago";
+	}
+}
+
+function utl_set_cookie(name, value, dtl) {
+	if (dtl) {
+		var date = new Date();
+		date.setTime(date.getTime() + (dtl*24*60*60*1000));
+		var expires = "; expires="+date.toGMTString();
+	} else { 
+		var expires = ""; 
+	}
+	document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function utl_get_cookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1, c.length);
+		if (c.indexOf(nameEQ) == 0) 
+			return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+
+function utl_remember_tz_offset()
+{
+	if (!utl_get_cookie('tzoffset') || !utl_get_cookie('dst')) {
+		var date = new Date();
+		var jan = new Date(date.getFullYear(), 0, 1);
+		var jul = new Date(date.getFullYear(), 6, 1);
+		var offset = Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset());
+		utl_set_cookie('tzoffset', -offset, 1);
+		var dst = date.getTimezoneOffset() < offset ? "1" : "0";
+		utl_set_cookie('dst', dst, 1);
+	}
+}
+
+function utl_tour_next_page(id)
+{
+	var elem = document.getElementById(id);
+	
+	for (var i = 1; i <= 5; i++) {
+		var hide = document.getElementById('tour_section1');
+		hide.style.display = 'none';
+	}
+	
+	elem.style.display = 'block';
+}
+
+function utl_show_stall_post_replies(id_prefix)
+{
+	var i;
+	for (i = 0; true; i++) {
+		var id = id_prefix + "." + i;
+		var elem = document.getElementById(id);
+		if (elem) {
+			elem.className = "stallpostreply_entry";
+		} else {
+			break;
+		}
+	}
+
+}
+
+
+
+
+

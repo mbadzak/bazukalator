@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Hello World</title>
+<script type="text/javascript" charset="utf-8" src="cordova-2.1.0.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="jquery.autosize-min.js"></script>
+<script type="text/javascript" src="utl.js"></script>
+
+
+<style>
+.lang_button {
+  height: 50px;
+  padding: 5px;
+}
+.post_box {
+  padding: 5px;
+  position: relative;
+  top: 1px;
+}
+body {
+  background-color: #eeeeee;
+}
+.this_page {
+  text-align: left;
+  background-size: 100%;
+  background-attachment: fixed;
+  background-repeat: repeat-x;
+}
+* {
+	font-family: Arial, Geneva, Helvetica, sans-serif;
+	font-size: 12px;
+	outline-width: 0px;
+}
+body {
+ 	margin: 0px;
+ 	text-align: center;
+}
+textarea {
+	resize: none;
+}
+textarea, select,
+input {
+	border: 1px solid #DDD;
+	-moz-border-radius: 8px;
+  	-webkit-border-radius: 8px;
+  	border-radius: 8px;
+}
+
+select {
+	border: 1px solid #DDD;
+}
+.heading {
+	font-size: 18px; 
+	font-weight: bold;
+	color: lightgray; 
+	background: black; 
+	padding: 5px;
+	background-image: url(img/gr1.png);
+	background-size: 100%;
+	background-attachment: fixed;
+	background-repeat: repeat-x;
+}
+.box {
+	font-size: 12px;
+	padding: 4px;
+	margin: 0px;
+	color: #999999;
+	width: 94%; 
+	height: 40px; 
+	border: 5px solid #ddd;
+}
+
+</style>
+
+</head>
+<body>
+
+
+<script type="text/javascript">
+    var orig_text = "";
+</script>
+<div class="this_page">
+  <div class="heading" style="">
+    Bazukalator
+  </div>
+  <div style="margin-top: 5px; text-align: left;">
+    <textarea name="msg" 
+              id="msg" 
+              onFocus="utl_clear_text_field(this, 'Write something...');"
+              class="box"
+              autocomplete="off">Write something...</textarea>
+  </div>
+  <div style="margin-top: 5px;">
+    <input type="button" 
+           id="btn_submit1" 
+           class="lang_button" 
+           value="Miran to Mark">
+    <input type="button" 
+           id="btn_submit2" 
+           class="lang_button" 
+           value="Miran to Sandra">
+    <input type="button" 
+           id="btn_submit3" 
+           class="lang_button" 
+           value="Miran to God">
+  </div>
+  
+  <div id="post" style="margin: 20px 0px 0px 5px; text-align: left; display: none; ">
+    <div style="float: left; clear: both; width: 50%; font-size: 11px;">
+      <input type="radio" 
+           id="post_facebook" 
+           class="post_box" 
+           checked="checked"
+           value="Post to Facebook">
+           <img class="button_img img_norad" src="img/fb-icon.png" width="15" height="15">
+           Facebook
+    </div>
+    <div style="float: left; width: 50%; font-size: 11px;">
+      <input type="radio" 
+           id="post_twitter" 
+           class="post_box" 
+           checked="checked"
+           value="Post to Facebook">
+           <img class="button_img img_norad" src="img/twitter-icon.png" width="15" height="15">
+           Twitter
+    </div>
+  </div>
+  <div id="post2" style="display: none; margin-top: 55px; margin-left: 0px;">
+      <input type="button" value="Post" style="padding: 5px;">
+  </div>
+</div>
+<script type="text/javascript">    
+    $("#btn_submit1").click(function() { submit(1); });
+    $("#btn_submit2").click(function() { submit(2); });
+    $("#btn_submit3").click(function() { submit(3); });
+
+    function submit(lang) {
+        if (orig_text == "") 
+            orig_text = $("#msg").val();
+        
+        var req = orig_text;
+        if (req == "")
+            return;
+        
+        $.post("http://localhost:8080/index.php/translator/svc", 
+              { req: req, lang: lang }, 
+              function(data) {
+             	$("#msg").val(data);
+                $("#post").css("display", "block");
+                $("#post2").css("display", "block");
+              }
+        );
+    }
+
+    function reset()
+    {
+    	$('#msg').val(''); 
+        orig_text = "";
+        $("#post").css("display", "none");
+        $("#post2").css("display", "none");
+    }
+    
+</script>
+
+</body>
+</html>
